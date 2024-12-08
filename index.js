@@ -3,12 +3,13 @@ const mongoose = require("mongoose");
 const Account = require("./models/account.model.js");
 const accountRoute = require("./routes/account.route.js");
 const app = express();
+const port = 3000;
 
 // middleware
 app.use(express.json());
 
 // routes
-app.use("/account", accountRoute);
+app.use("/api/account", accountRoute);
 
 // app.get("/", function (req, res) {
 //   res.send("Hello World");
@@ -82,8 +83,8 @@ mongoose
   )
   .then(() => {
     console.log("Connected to database");
-    app.listen(3000, () => {
-      console.log("Server is running on port 3000");
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
     });
   })
   .catch(() => console.log("Connection failed!"));

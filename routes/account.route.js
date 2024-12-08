@@ -12,8 +12,11 @@ const {
 router.get("/", getAccounts);
 
 // router.get("/:id", getAccounts);
+// add account
 router.post("/", createAccount);
+// update account
 router.put("/:id", updateAccount);
+// delete account
 router.delete("/:id", deleteAccount);
 
 module.exports = router;

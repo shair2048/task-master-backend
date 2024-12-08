@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const AccountSchema = mongoose.Schema(
   {
+    username: {
+      type: String,
+      required: [true, "Plase enter username"],
+    },
     email: {
       type: String,
       required: [true, "Plase enter email"],

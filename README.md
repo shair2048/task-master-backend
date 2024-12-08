@@ -2,6 +2,8 @@
 
 ### Run server:
 
-yarn dev
+    yarn dev
+
 or
-yarn serve
+
+    yarn serve

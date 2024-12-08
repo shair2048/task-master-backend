@@ -9,7 +9,7 @@ const registerAccount = async (req, res) => {
       return res.status(400).json({ error: "Email and Password are required" });
     }
 
-    res.status(200).json({ email, password });
+    res.status(201).json({ message: "Registration successful" });
 
     // const hashedPassword = await bcrypt.hash(password, 10);
   } catch (error) {

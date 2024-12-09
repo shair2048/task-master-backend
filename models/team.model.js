@@ -7,8 +7,30 @@ const TeamSchema = mongoose.Schema(
       required: true,
     },
     members: {
-      type: Array,
+      type: [
+        {
+          user_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Account",
+            required: true,
+          },
+          user_name: {
+            type: String,
+            required: false,
+          },
+          role: {
+            type: String,
+            enum: ["leader", "member"],
+            required: true,
+          },
+        },
+      ],
       default: [],
+      _id: false,
+    },
+    teamAvt: {
+      type: String,
+      required: false,
     },
   },
   {

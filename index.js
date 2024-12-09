@@ -5,6 +5,7 @@ const Account = require("./models/account.model.js");
 const accountRoute = require("./routes/account.route.js");
 const registerRoute = require("./routes/register.route.js");
 const loginRoute = require("./routes/login.route.js");
+const teamRoute = require("./routes/teams.route.js");
 
 const app = express();
 const port = 3000;
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/account", accountRoute);
 app.use("/api/register", registerRoute);
 app.use("/api/login", loginRoute);
+app.use("/api/teams", teamRoute);
 
 mongoose
   .connect(

@@ -18,7 +18,7 @@ const AccountSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      default: "individual",
+      default: "Individual",
     },
     userAvt: {
       type: String,

@@ -6,6 +6,7 @@ const loginAccount = async (req, res) => {
 
   try {
     const user = await Account.findOne({ email });
+    const uid = user._id;
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -19,11 +20,11 @@ const loginAccount = async (req, res) => {
       return res.status(404).json({ message: "Password is wrong" });
     }
 
-    const token = jwt.sign({ id: user._id }, "ijhnciujahnihiuh98729873109", {
+    const token = jwt.sign({ id: uid }, "ijhnciujahnihiuh98729873109", {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ message: "Login successful", token });
+    res.status(200).json({ message: "Login successful", token, uid });
 
     // const hashedPassword = await bcrypt.hash(password, 10);
   } catch (error) {

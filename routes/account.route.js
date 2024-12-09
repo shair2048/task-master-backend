@@ -3,7 +3,7 @@ const router = express.Router();
 const Account = require("../models/account.model.js");
 const {
   getAccounts,
-  getProduct,
+  getAccount,
   createAccount,
   updateAccount,
   deleteAccount,
@@ -11,7 +11,7 @@ const {
 
 router.get("/", getAccounts);
 
-// router.get("/:id", getAccounts);
+router.get("/:id", getAccount);
 // add account
 router.post("/", createAccount);
 // update account

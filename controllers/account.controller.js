@@ -9,15 +9,15 @@ const getAccounts = async (req, res) => {
   }
 };
 
-// const getAccount = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const account = await Account.findById(id);
-//     res.status(200).json(account);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
+const getAccount = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const account = await Account.findById(id);
+    res.status(200).json(account);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 const createAccount = async (req, res) => {
   try {
@@ -57,7 +57,7 @@ const deleteAccount = async (req, res) => {
 
 module.exports = {
   getAccounts,
-  // getAccounts,
+  getAccount,
   createAccount,
   updateAccount,
   deleteAccount,

@@ -1,4 +1,4 @@
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const Account = require("../models/account.model.js");
 
 const loginAccount = async (req, res) => {
@@ -19,11 +19,11 @@ const loginAccount = async (req, res) => {
       return res.status(404).json({ message: "Password is wrong" });
     }
 
-    // const token = jwt.sign({ id: user._id }, "ijhnciujahnihiuh98729873109", {
-    //   expiresIn: "1h",
-    // });
+    const token = jwt.sign({ id: user._id }, "ijhnciujahnihiuh98729873109", {
+      expiresIn: "1h",
+    });
 
-    res.status(200).json({ message: "Login successful" });
+    res.status(200).json({ message: "Login successful", token });
 
     // const hashedPassword = await bcrypt.hash(password, 10);
   } catch (error) {

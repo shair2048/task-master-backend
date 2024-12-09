@@ -7,6 +7,7 @@ const loginAccount = async (req, res) => {
   try {
     const user = await Account.findOne({ email });
     const uid = user._id;
+    const role = user.role;
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -24,7 +25,7 @@ const loginAccount = async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ message: "Login successful", token, uid });
+    res.status(200).json({ message: "Login successful", token, uid, role });
 
     // const hashedPassword = await bcrypt.hash(password, 10);
   } catch (error) {

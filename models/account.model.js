@@ -25,8 +25,21 @@ const AccountSchema = mongoose.Schema(
       required: false,
     },
     teams: {
-      type: Array,
+      type: [
+        {
+          team_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Team",
+            required: false,
+          },
+          team_name: {
+            type: String,
+            required: false,
+          },
+        },
+      ],
       default: [],
+      _id: false,
     },
   },
   {

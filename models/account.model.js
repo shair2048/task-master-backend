@@ -16,9 +16,17 @@ const AccountSchema = mongoose.Schema(
       required: [true, "Plase enter password"],
       default: 0,
     },
+    role: {
+      type: String,
+      default: "individual",
+    },
     userAvt: {
       type: String,
       required: false,
+    },
+    teams: {
+      type: Array,
+      default: [],
     },
   },
   {

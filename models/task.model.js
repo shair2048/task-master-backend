@@ -69,6 +69,12 @@ const TaskSchema = mongoose.Schema(
       require: false,
       _id: false,
     },
+    taskStatus: {
+      type: String,
+      enum: ["To do", "In Progress", "Done"],
+      default: "To do",
+      require: false,
+    },
   },
   {
     timestamps: true,

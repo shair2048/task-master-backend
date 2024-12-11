@@ -6,6 +6,8 @@ const accountRoute = require("./routes/account.route.js");
 const registerRoute = require("./routes/register.route.js");
 const loginRoute = require("./routes/login.route.js");
 const teamRoute = require("./routes/teams.route.js");
+const taskRoute = require("./routes/task.route.js");
+
 const cors = require("cors");
 
 const app = express();
@@ -36,6 +38,7 @@ app.use("/api/account", accountRoute);
 app.use("/api/register", registerRoute);
 app.use("/api/login", loginRoute);
 app.use("/api/teams", teamRoute);
+app.use("/api/tasks", taskRoute);
 
 mongoose
   .connect(

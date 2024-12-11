@@ -27,12 +27,12 @@ const AccountSchema = mongoose.Schema(
     teams: {
       type: [
         {
-          team_id: {
+          teamId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Team",
             required: false,
           },
-          team_name: {
+          teamName: {
             type: String,
             required: false,
           },

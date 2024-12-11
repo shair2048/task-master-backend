@@ -2,25 +2,25 @@ const mongoose = require("mongoose");
 
 const TeamSchema = mongoose.Schema(
   {
-    team_name: {
+    teamName: {
       type: String,
       required: true,
     },
     members: {
       type: [
         {
-          user_id: {
+          userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Account",
             required: true,
           },
-          user_name: {
+          username: {
             type: String,
             required: false,
           },
           role: {
             type: String,
-            enum: ["leader", "member"],
+            enum: ["Leader", "Member"],
             required: true,
           },
         },

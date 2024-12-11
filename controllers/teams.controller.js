@@ -23,8 +23,8 @@ const getTeams = async (req, res) => {
 const createTeams = async (req, res) => {
   try {
     const { id } = req.params;
-    const { team_name } = req.body;
-    if (!id || !team_name) {
+    const { teamName } = req.body;
+    if (!id || !teamName) {
       return res.status(400).json({ message: "ID or team name is blank" });
     }
 
@@ -35,12 +35,12 @@ const createTeams = async (req, res) => {
     }
 
     const teamData = {
-      team_name,
+      teamName,
       members: [
         {
-          user_id: id,
-          user_name: user.username,
-          role: "leader",
+          userId: id,
+          username: user.username,
+          role: "Leader",
         },
       ],
     };
@@ -50,8 +50,8 @@ const createTeams = async (req, res) => {
     await Account.findByIdAndUpdate(id, {
       $push: {
         teams: {
-          team_id: team._id,
-          team_name: team.team_name,
+          teamId: team._id,
+          teamName: team.teamName,
         },
       },
     });

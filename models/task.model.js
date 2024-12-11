@@ -11,6 +11,30 @@ const TaskSchema = mongoose.Schema(
       required: true,
     },
 
+    assignTo: {
+      type: [
+        {
+          userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Account",
+            required: true,
+          },
+          username: {
+            type: String,
+            required: true,
+          },
+          _id: false,
+        },
+      ],
+      default: [],
+      require: false,
+    },
+
+    priority: {
+      type: String,
+      enum: ["Low", "Medium", "High"],
+      require: true,
+    },
     deadline: {
       type: Date,
       required: true,
@@ -28,15 +52,18 @@ const TaskSchema = mongoose.Schema(
         },
         _id: false,
       },
+      required: true,
     },
     teams: {
       type: {
         teamId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Team",
+          require: true,
         },
         teamName: {
           type: String,
+          required: true,
         },
       },
       require: false,

@@ -39,6 +39,7 @@ const AccountSchema = mongoose.Schema(
         },
       ],
       default: [],
+      require: false,
       _id: false,
     },
   },

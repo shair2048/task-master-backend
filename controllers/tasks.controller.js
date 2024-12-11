@@ -34,7 +34,7 @@ const getTaskByUserId = async (req, res) => {
 const createTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const { taskName, taskDescription, deadline } = req.body;
+    const { taskName, taskDescription, priority, deadline } = req.body;
     if (!id || !taskName) {
       return res.status(400).json({
         message: "ID or taskName, taskDescription, deadline is blank",
@@ -50,6 +50,7 @@ const createTask = async (req, res) => {
     const taskData = {
       taskName,
       taskDescription,
+      priority,
       deadline,
       createdBy: {
         userId: id,
@@ -57,6 +58,7 @@ const createTask = async (req, res) => {
       },
     };
 
+    // console.log(taskData);
     const task = await Task.create(taskData);
 
     // await Account.findByIdAndUpdate(id, {

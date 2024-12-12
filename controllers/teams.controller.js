@@ -11,6 +11,16 @@ const getTeams = async (req, res) => {
   }
 };
 
+const getTeam = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const team = await Team.findById(id);
+    res.status(200).json(team);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // const createTeams = async (req, res) => {
 //   try {
 //     const team = await Team.create(req.body);
@@ -64,5 +74,6 @@ const createTeams = async (req, res) => {
 
 module.exports = {
   getTeams,
+  getTeam,
   createTeams,
 };

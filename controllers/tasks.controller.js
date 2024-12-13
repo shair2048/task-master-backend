@@ -43,6 +43,21 @@ const getTaskById = async (req, res) => {
   }
 };
 
+const changeTaskStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { taskStatus } = req.body;
+
+    await Task.findByIdAndUpdate(id, { taskStatus });
+
+    const updatedTask = await Task.findById(id);
+
+    res.status(201).json(updatedTask);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const createTask = async (req, res) => {
   try {
     const { id } = req.params;
@@ -92,5 +107,6 @@ module.exports = {
   getTask,
   getTaskByUserId,
   getTaskById,
+  changeTaskStatus,
   createTask,
 };

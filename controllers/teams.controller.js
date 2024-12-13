@@ -33,7 +33,7 @@ const getTeam = async (req, res) => {
 const createTeams = async (req, res) => {
   try {
     const { id } = req.params;
-    const { teamName } = req.body;
+    const { teamName, memberId } = req.body;
     if (!id || !teamName) {
       return res.status(400).json({ message: "ID or team name is blank" });
     }
@@ -44,6 +44,20 @@ const createTeams = async (req, res) => {
       return res.status(404).json({ message: "User does not exist" });
     }
 
+    const memberList = [];
+    const member = await Account.findById(memberId);
+    if (!member) {
+      return res
+        .status(404)
+        .json({ message: `Member with ID ${memberId} does not exist` });
+    }
+
+    memberList.push({
+      userId: member._id,
+      username: member.username,
+      role: "Member",
+    });
+
     const teamData = {
       teamName,
       members: [
@@ -52,6 +66,7 @@ const createTeams = async (req, res) => {
           username: user.username,
           role: "Leader",
         },
+        ...memberList,
       ],
     };
 
@@ -65,6 +80,17 @@ const createTeams = async (req, res) => {
         },
       },
     });
+
+    for (const member of memberList) {
+      await Account.findByIdAndUpdate(member.userId, {
+        $push: {
+          teams: {
+            teamId: team._id,
+            teamName: team.teamName,
+          },
+        },
+      });
+    }
 
     res.status(201).json(team);
   } catch (error) {

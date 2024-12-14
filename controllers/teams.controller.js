@@ -21,6 +21,21 @@ const getTeam = async (req, res) => {
   }
 };
 
+const getTeamByUserId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await Account.findById(id).select("teams");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user.teams);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // const createTeams = async (req, res) => {
 //   try {
 //     const team = await Team.create(req.body);
@@ -101,5 +116,6 @@ const createTeams = async (req, res) => {
 module.exports = {
   getTeams,
   getTeam,
+  getTeamByUserId,
   createTeams,
 };

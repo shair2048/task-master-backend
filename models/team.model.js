@@ -14,10 +14,10 @@ const TeamSchema = mongoose.Schema(
             ref: "Account",
             required: true,
           },
-          username: {
-            type: String,
-            required: false,
-          },
+          // username: {
+          //   type: String,
+          //   required: false,
+          // },
           role: {
             type: String,
             enum: ["Leader", "Member"],

@@ -24,27 +24,21 @@ const getTeam = async (req, res) => {
 const getTeamByUserId = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await Account.findById(id).select("teams");
+    // const user = await Account.findById(id).select("teams");
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    // if (!user) {
+    //   return res.status(404).json({ message: "User not found" });
+    // }
 
-    res.status(200).json(user.teams);
+    const teams = await Team.find({ "members.userId": id });
+    // console.log(teams);
+
+    res.status(200).json(teams);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// const createTeams = async (req, res) => {
-//   try {
-//     const team = await Team.create(req.body);
-
-//     res.status(201).json(team);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
 const createTeams = async (req, res) => {
   try {
     const { id } = req.params;
@@ -78,7 +72,6 @@ const createTeams = async (req, res) => {
       members: [
         {
           userId: id,
-          username: user.username,
           role: "Leader",
         },
         ...memberList,
@@ -91,7 +84,6 @@ const createTeams = async (req, res) => {
       $push: {
         teams: {
           teamId: team._id,
-          teamName: team.teamName,
         },
       },
     });
@@ -101,7 +93,6 @@ const createTeams = async (req, res) => {
         $push: {
           teams: {
             teamId: team._id,
-            teamName: team.teamName,
           },
         },
       });

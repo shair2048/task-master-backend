@@ -46,10 +46,10 @@ const TaskSchema = mongoose.Schema(
           ref: "Account",
           required: true,
         },
-        username: {
-          type: String,
-          required: true,
-        },
+        // username: {
+        //   type: String,
+        //   required: true,
+        // },
         _id: false,
       },
       required: true,
@@ -61,10 +61,10 @@ const TaskSchema = mongoose.Schema(
           ref: "Team",
           require: true,
         },
-        teamName: {
-          type: String,
-          required: true,
-        },
+        // teamName: {
+        //   type: String,
+        //   required: true,
+        // },
       },
       require: false,
       _id: false,

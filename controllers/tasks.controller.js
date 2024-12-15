@@ -68,11 +68,11 @@ const createTask = async (req, res) => {
       });
     }
 
-    const user = await Account.findById(id);
+    // const user = await Account.findById(id);
 
-    if (!user) {
-      return res.status(404).json({ message: "User does not exist" });
-    }
+    // if (!user) {
+    //   return res.status(404).json({ message: "User does not exist" });
+    // }
 
     const taskData = {
       taskName,
@@ -81,21 +81,11 @@ const createTask = async (req, res) => {
       deadline,
       createdBy: {
         userId: id,
-        username: user.username,
       },
     };
 
     // console.log(taskData);
     const task = await Task.create(taskData);
-
-    // await Account.findByIdAndUpdate(id, {
-    //   $push: {
-    //     teams: {
-    //       teamId: task._id,
-    //       teamName: task.teamName,
-    //     },
-    //   },
-    // });
 
     res.status(201).json(task);
   } catch (error) {

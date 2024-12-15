@@ -32,10 +32,10 @@ const AccountSchema = mongoose.Schema(
             ref: "Team",
             required: false,
           },
-          teamName: {
-            type: String,
-            required: false,
-          },
+          // teamName: {
+          //   type: String,
+          //   required: false,
+          // },
         },
       ],
       default: [],

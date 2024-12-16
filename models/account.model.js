@@ -58,25 +58,25 @@ const AccountSchema = mongoose.Schema(
 );
 
 // middleware
-// AccountSchema.pre("save", async function (next) {
-//   if (this.isNew) {
-//     try {
-//       const individualTeam = new Team({
-//         teamName: "Individual",
-//         members: [{ userId: this._id, role: "Individual" }],
-//         isIndividual: true,
-//       });
-//       await individualTeam.save();
+AccountSchema.pre("save", async function (next) {
+  if (this.isNew) {
+    try {
+      const individualTeam = new Team({
+        teamName: "Individual",
+        members: [{ userId: this._id, role: "Individual" }],
+        isIndividual: true,
+      });
+      await individualTeam.save();
 
-//       this.teams.push({ teamId: individualTeam._id });
-//       next();
-//     } catch (error) {
-//       next(error);
-//     }
-//   } else {
-//     next();
-//   }
-// });
+      this.teams.push({ teamId: individualTeam._id });
+      next();
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    next();
+  }
+});
 
 const Account = mongoose.model("Account", AccountSchema);
 

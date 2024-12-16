@@ -21,8 +21,12 @@ const getTaskByUserId = async (req, res) => {
 
     const tasks = await Task.find({ "createdBy.userId": id });
 
-    if (tasks.length === 0) {
-      return res.status(404).json({ message: "No tasks found for this user" });
+    // if (tasks.length === 0) {
+    //   return res.status(404).json({ message: "No tasks found for this user" });
+    // }
+
+    if (!tasks.length) {
+      return res.status(200).json([]);
     }
 
     res.status(200).json(tasks);

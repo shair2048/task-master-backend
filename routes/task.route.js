@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   getTask,
   getTaskByUserId,
+  getTaskByWorkspace,
   getTaskById,
   changeTaskStatus,
   createTask,
@@ -11,6 +12,7 @@ const {
 router.get("/", getTask);
 router.post("/user/:id", createTask);
 router.get("/user/:id", getTaskByUserId);
+router.get("/workspace/", getTaskByWorkspace);
 router.get("/:id", getTaskById);
 router.put("/:id", changeTaskStatus);
 

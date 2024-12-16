@@ -20,7 +20,7 @@ const TeamSchema = mongoose.Schema(
           // },
           role: {
             type: String,
-            enum: ["Leader", "Member"],
+            enum: ["Individual", "Leader", "Member"],
             required: true,
           },
         },
@@ -31,6 +31,10 @@ const TeamSchema = mongoose.Schema(
     teamAvt: {
       type: String,
       required: false,
+    },
+    isIndividual: {
+      type: Boolean,
+      default: false,
     },
   },
   {

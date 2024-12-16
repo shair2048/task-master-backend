@@ -73,6 +73,26 @@ const deleteAccount = async (req, res) => {
   }
 };
 
+// const updateCurrentWorkspace = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+
+//     const account = await Account.findByIdAndUpdate(id, {
+//       $push: {
+//         workspaceType: "Team",
+//       },
+//     });
+
+//     if (!account) {
+//       return res.status(404).json({ message: "Account not found" });
+//     }
+
+//     res.status(200).json({ message: "Updated success" });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 module.exports = {
   getAccounts,
   getAccount,

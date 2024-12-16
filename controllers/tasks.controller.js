@@ -31,6 +31,55 @@ const getTaskByUserId = async (req, res) => {
   }
 };
 
+const getTaskByWorkspace = async (req, res) => {
+  try {
+    const { workspaceId, workspaceType } = req.body;
+    // console.log(workspaceId);
+
+    if (!workspaceId || !workspaceType) {
+      return res
+        .status(400)
+        .json({ message: "Workspace ID and type are required" });
+    }
+
+    let tasks;
+    // if (workspaceType === "Individual") {
+    //   tasks = await Task.find({
+    //     "createdBy.userId": workspaceId,
+    //   });
+    // } else if (workspaceType === "Team") {
+    //   tasks = await Task.find({
+    //     "teams.teamId": workspaceId,
+    //   });
+    // } else {
+    //   return res.status(400).json({ message: "Invalid workspace type" });
+    // }
+
+    switch (workspaceType) {
+      case "Individual":
+        tasks = await Task.find({
+          "createdBy.userId": workspaceId,
+        });
+        break;
+      case "Team":
+        tasks = await Task.find({
+          "teams.teamId": workspaceId,
+        });
+        break;
+    }
+
+    if (tasks.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No tasks found for this workspace" });
+    }
+
+    res.status(200).json(tasks);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const getTaskById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -96,6 +145,7 @@ const createTask = async (req, res) => {
 module.exports = {
   getTask,
   getTaskByUserId,
+  getTaskByWorkspace,
   getTaskById,
   changeTaskStatus,
   createTask,

@@ -13,13 +13,13 @@ const getTask = async (req, res) => {
 };
 const getTaskByUserId = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { userId } = req.params;
 
-    if (!id) {
+    if (!userId) {
       return res.status(400).json({ message: "User ID is required" });
     }
 
-    const tasks = await Task.find({ "createdBy.userId": id });
+    const tasks = await Task.find({ "createdBy.userId": userId });
 
     // if (tasks.length === 0) {
     //   return res.status(404).json({ message: "No tasks found for this user" });
@@ -37,46 +37,16 @@ const getTaskByUserId = async (req, res) => {
 
 const getTaskByWorkspace = async (req, res) => {
   try {
-    const { workspaceId, workspaceType } = req.body;
-    // console.log(workspaceId);
+    const { teamId } = req.params;
+    // console.log("teamId", teamId);
 
-    if (!workspaceId || !workspaceType) {
-      return res
-        .status(400)
-        .json({ message: "Workspace ID and type are required" });
+    if (!teamId) {
+      return res.status(200).json([]);
     }
 
-    let tasks;
-    // if (workspaceType === "Individual") {
-    //   tasks = await Task.find({
-    //     "createdBy.userId": workspaceId,
-    //   });
-    // } else if (workspaceType === "Team") {
-    //   tasks = await Task.find({
-    //     "teams.teamId": workspaceId,
-    //   });
-    // } else {
-    //   return res.status(400).json({ message: "Invalid workspace type" });
-    // }
-
-    switch (workspaceType) {
-      case "Individual":
-        tasks = await Task.find({
-          "createdBy.userId": workspaceId,
-        });
-        break;
-      case "Team":
-        tasks = await Task.find({
-          "teams.teamId": workspaceId,
-        });
-        break;
-    }
-
-    if (tasks.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No tasks found for this workspace" });
-    }
+    const tasks = await Task.find({
+      "teams.teamId": teamId,
+    });
 
     res.status(200).json(tasks);
   } catch (error) {
@@ -113,19 +83,14 @@ const changeTaskStatus = async (req, res) => {
 
 const createTask = async (req, res) => {
   try {
-    const { id } = req.params;
+    // const { id } = req.params;
+    const { id, teamId } = req.query;
     const { taskName, taskDescription, priority, deadline } = req.body;
     if (!id || !taskName) {
       return res.status(400).json({
         message: "ID or taskName, taskDescription, deadline is blank",
       });
     }
-
-    // const user = await Account.findById(id);
-
-    // if (!user) {
-    //   return res.status(404).json({ message: "User does not exist" });
-    // }
 
     const taskData = {
       taskName,
@@ -134,6 +99,9 @@ const createTask = async (req, res) => {
       deadline,
       createdBy: {
         userId: id,
+      },
+      teams: {
+        teamId: teamId,
       },
     };
 

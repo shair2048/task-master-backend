@@ -10,9 +10,9 @@ const {
 } = require("../controllers/tasks.controller.js");
 
 router.get("/", getTask);
-router.post("/user/:id", createTask);
-router.get("/user/:id", getTaskByUserId);
-router.get("/workspace/", getTaskByWorkspace);
+router.post("/create", createTask);
+router.get("/user/:userId", getTaskByUserId);
+router.get("/workspace/:teamId", getTaskByWorkspace);
 router.get("/:id", getTaskById);
 router.put("/:id", changeTaskStatus);
 

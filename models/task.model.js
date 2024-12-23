@@ -19,10 +19,10 @@ const TaskSchema = mongoose.Schema(
             ref: "Account",
             required: true,
           },
-          username: {
-            type: String,
-            required: true,
-          },
+          // username: {
+          //   type: String,
+          //   required: true,
+          // },
           _id: false,
         },
       ],

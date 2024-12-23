@@ -85,7 +85,9 @@ const createTask = async (req, res) => {
   try {
     // const { id } = req.params;
     const { id, teamId } = req.query;
-    const { taskName, taskDescription, priority, deadline } = req.body;
+    const { taskName, taskDescription, assignTo, priority, deadline } =
+      req.body;
+
     if (!id || !taskName) {
       return res.status(400).json({
         message: "ID or taskName, taskDescription, deadline is blank",
@@ -95,6 +97,9 @@ const createTask = async (req, res) => {
     const taskData = {
       taskName,
       taskDescription,
+      // assignTo: {
+      //   userId: assignTo,
+      // },
       priority,
       deadline,
       createdBy: {
@@ -104,6 +109,10 @@ const createTask = async (req, res) => {
         teamId: teamId,
       },
     };
+
+    if (assignTo) {
+      taskData.assignTo = assignTo.map((userId) => ({ userId }));
+    }
 
     // console.log(taskData);
     const task = await Task.create(taskData);

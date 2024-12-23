@@ -1,6 +1,7 @@
 const Team = require("../models/team.model");
 const Account = require("../models/account.model.js");
 const Task = require("../models/task.model.js");
+const { format } = require("date-fns");
 
 const getTask = async (req, res) => {
   try {
@@ -48,7 +49,12 @@ const getTaskByWorkspace = async (req, res) => {
       "teams.teamId": teamId,
     });
 
-    res.status(200).json(tasks);
+    const formattedTasks = tasks.map((task) => ({
+      ...task._doc,
+      deadline: format(new Date(task.deadline), "dd-MM-yyyy"),
+    }));
+
+    res.status(200).json(formattedTasks);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -60,7 +66,14 @@ const getTaskById = async (req, res) => {
 
     const task = await Task.findById(id);
 
-    res.status(200).json(task);
+    const formattedTask = {
+      ...task._doc,
+      deadline: format(new Date(task.deadline), "dd-MM-yyyy"),
+      createdAt: format(new Date(task.createdAt), "dd-MM-yyyy"),
+      updatedAt: format(new Date(task.updatedAt), "dd-MM-yyyy"),
+    };
+
+    res.status(200).json(formattedTask);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

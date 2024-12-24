@@ -93,10 +93,21 @@ const deleteAccount = async (req, res) => {
 //   }
 // };
 
+const getAccountsByTeamId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const accounts = await Account.find({ "teams.teamId": id });
+    res.status(200).json(accounts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getAccounts,
   getAccount,
   createAccount,
   updateAccount,
   deleteAccount,
+  getAccountsByTeamId,
 };

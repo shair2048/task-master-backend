@@ -7,6 +7,7 @@ const {
   createAccount,
   updateAccount,
   deleteAccount,
+  getAccountsByTeamId,
 } = require("../controllers/account.controller.js");
 
 router.get("/", getAccounts);
@@ -18,5 +19,7 @@ router.post("/", createAccount);
 router.put("/:id", updateAccount);
 // delete account
 router.delete("/:id", deleteAccount);
+
+router.get("/team/:id", getAccountsByTeamId);
 
 module.exports = router;

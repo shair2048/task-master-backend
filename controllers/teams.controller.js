@@ -104,6 +104,7 @@ const createTeams = async (req, res) => {
   }
 };
 
+
 module.exports = {
   getTeams,
   getTeam,

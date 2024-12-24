@@ -52,6 +52,7 @@ const getTaskByWorkspace = async (req, res) => {
     const formattedTasks = tasks.map((task) => ({
       ...task._doc,
       deadline: format(new Date(task.deadline), "dd-MM-yyyy"),
+      createdAt: format(new Date(task.createdAt), "dd-MM-yyyy"),
     }));
 
     res.status(200).json(formattedTasks);
